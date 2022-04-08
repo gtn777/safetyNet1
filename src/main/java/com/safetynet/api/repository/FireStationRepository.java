@@ -1,22 +1,21 @@
 package com.safetynet.api.repository;
 
-import java.util.List;
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.safetynet.api.model.FireStation;
 
-@Repository	
-public interface FireStationRepository extends CrudRepository<FireStation, Long> {
+@Repository
+public interface FireStationRepository extends JpaRepository<FireStation, Long> {
 
-	public FireStation deleteByAddress(String address);
+	@Modifying
+	@Query("update FireStation set station = ?2 where address = ?1 ")
+	public void updateFireStationByAddress(String address, String station);
 
-	List<FireStation> findByAddress(String address);
-
-	@Query("UPDATE firestations SET station=:station WHERE address=:address ")
-	public FireStation updateFireStation(@Param("address") String address,@Param("station") String station);
+	
+	@Modifying
+	public void deleteAllByAddressOrStation(String address, String station);
 
 }

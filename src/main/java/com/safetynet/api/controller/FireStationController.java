@@ -28,12 +28,12 @@ public class FireStationController {
 	}
 	
 	@PutMapping("/firestation")
-	public FireStation updateFireStation(@RequestBody FireStation fireStation) {
-		return fireStationService.updateFireStation(fireStation);
+	public void updateFireStation(@RequestBody FireStation fireStation) {
+		fireStationService.updateFireStation(fireStation);
 		}
 	
 	@DeleteMapping("/firestation")
-	public void deleteFireStation(@RequestBody FireStation fireStation) {
-		fireStationService.deleteFireStation(fireStation);
+	public void deleteFireStation(@RequestBody String mappingToDelete ) {
+		fireStationService.deleteMapping(mappingToDelete);
 	}
 }

@@ -25,15 +25,15 @@ public class FireStationService {
 		return fireStationRepository.save(fireStation);
 	}
 
-	public FireStation updateFireStation(FireStation fireStation) {
-//		return fireStationRepository.updateFireStationByAddress(fireStation.getAddress(), fireStation.getStation());
-		return null;
-		
+	@Transactional
+	public void updateFireStation(FireStation fireStation) {
+		fireStationRepository.updateFireStationByAddress(fireStation.getAddress(), fireStation.getStation());
 	}
 
 	@Transactional
-	public void deleteFireStation(FireStation fireStation) {
-		fireStationRepository.deleteByAddress(fireStation.getAddress());
+	public void deleteMapping(String mappingToDelete) {
+		fireStationRepository.deleteAllByAddressOrStation(mappingToDelete, mappingToDelete);
+
 	}
 
 }
